@@ -13,6 +13,8 @@ export const login = async ({username, password}) => {
   const res = await axios.post("http://localhost:8080/login", {
     username,
     password,
+  }).then(function(response){
+    console.log(response.headers);
   });
   return res;
 }
