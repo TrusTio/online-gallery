@@ -1,7 +1,7 @@
 import React from "react";
 import { Form, Field, Formik } from "formik";
 import { Button } from "react-bootstrap";
-import { login } from "../../components/api/gallery/users";
+import { login } from "components/api/gallery/index";
 export const LoginPage = () => {
   return (
     <Formik
@@ -14,11 +14,7 @@ export const LoginPage = () => {
         return (
           <Form>
             <Field name="username" label="Username" />
-            <Field
-              label="Password"
-              name="password"
-              type="password"
-            />
+            <Field label="Password" name="password" type="password" />
             <Button type="submit">Login</Button>
           </Form>
         );
