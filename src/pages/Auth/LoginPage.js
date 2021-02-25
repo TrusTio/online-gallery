@@ -17,9 +17,9 @@ export const LoginPage = () => {
           <Form>
             {error && <Alert variant="danger">{error}</Alert>}
             <Field name="username" label="Username" />
-            <Field label="Password" name="password" type="password" />
+            <Field name="password" label="Password" type="password" />
             <Button type="submit">Login</Button>
-            <Alert variant="danger">Username: {user?.username}</Alert>
+            <Alert variant="info">Username: {user?.username}</Alert>
           </Form>
         );
       }}

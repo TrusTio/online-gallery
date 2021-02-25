@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn } from "components/api/gallery";
+import { signIn, signUp } from "components/api/gallery";
 
 const AuthContext = React.createContext();
 
@@ -22,11 +22,23 @@ export const AuthContextProvider = ({ children }) => {
       setLoading(false);
     }
   };
+
+  const createAccount = async ({ username, email, password }) => {
+    try {
+      const user = await signUp({ username, email, password });
+      setUser(user);
+    } catch (err) {
+      console.log(JSON.stringify(err));
+      setError(err?.response?.data?.message);
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, error, login }}
+      value={{ user, loading, error, login, createAccount }}
     >
-        {children}
+      {children}
     </AuthContext.Provider>
   );
 };
