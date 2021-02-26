@@ -4,7 +4,7 @@ import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 
 export const SignUpPage = () => {
-  const { user, error, createAccount } = useAuth();
+  const { error, createAccount } = useAuth();
 
   return (
     <Formik
