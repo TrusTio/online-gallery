@@ -4,9 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 
 export const AppBar = ({ children }) => {
-  const { user } = useAuth();
+  const { user, isAuthenticated } = useAuth();
 
-  if(user){
+  if(isAuthenticated){
     return (
       <Navbar bg="dark" variant="dark">
         <Link to="/">
@@ -14,7 +14,9 @@ export const AppBar = ({ children }) => {
         </Link>
   
         <Nav className="mr-auto">
-        
+        <Nav.Link as={NavLink} to="/galleries">
+            Galleries
+          </Nav.Link>
         </Nav>
   
         {children}

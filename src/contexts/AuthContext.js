@@ -7,6 +7,7 @@ export const AuthContextProvider = ({ children }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [user, setUser] = React.useState(null);
+  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
 
   const login = async ({ username, password }) => {
     if (loading) {
@@ -14,8 +15,14 @@ export const AuthContextProvider = ({ children }) => {
     }
     try {
       setLoading(true);
-      const user = await signIn({ username, password });
-      setUser(user);
+      const response = await signIn({ username, password });
+      setUser(response?.data);
+
+      if (response.status === 200) {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
     } catch (err) {
       setError(err?.response?.data?.message);
     } finally {
@@ -36,7 +43,7 @@ export const AuthContextProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, loading, error, login, createAccount }}
+      value={{ user, loading, error, login, createAccount, isAuthenticated }}
     >
       {children}
     </AuthContext.Provider>
