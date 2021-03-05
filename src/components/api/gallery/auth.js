@@ -10,10 +10,9 @@ export const signUp = async ({ username, email, password }) => {
 };
 
 export const signIn = async ({ username, password }) => {
-  const res = await axios
-    .post("/login", {
-      username,
-      password,
-    });
+  const res = await axios.post("/login", {
+    username,
+    password,
+  });
   return res;
 };
