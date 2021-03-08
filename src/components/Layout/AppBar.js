@@ -24,6 +24,7 @@ export const AppBar = ({ children }) => {
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-info">Search</Button>
+          <div>{user?.username}</div>
           <Button
             variant="danger"
             onClick={() => {
