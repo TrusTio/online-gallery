@@ -1,5 +1,6 @@
 import React from "react";
 import { signIn, signUp, signOut } from "components/api/gallery";
+import { useHistory } from "react-router-dom";
 
 const AuthContext = React.createContext();
 

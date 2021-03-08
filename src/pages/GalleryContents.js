@@ -13,6 +13,7 @@ export const GalleryContents = () => {
   const onButtonClick = () => {
     inputFile.current.click();
   };
+
   const onChangeFile = (event) => {
     event.stopPropagation();
     event.preventDefault();

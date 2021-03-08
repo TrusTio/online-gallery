@@ -5,6 +5,7 @@ import { useAuth } from "contexts/AuthContext";
 
 export const LoginPage = () => {
   const { user, error, login } = useAuth();
+
   return (
     <Formik
       initialValues={{ username: "", password: "" }}

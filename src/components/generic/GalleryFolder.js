@@ -10,6 +10,7 @@ export const GalleryFolder = ({ gallery }) => {
         id: gallery?.id,
       },
     });
+
   return (
     <div onClick={goContentsPage}>
       <div>Name: {gallery?.name}</div>

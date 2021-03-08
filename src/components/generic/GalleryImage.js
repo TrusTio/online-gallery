@@ -4,6 +4,7 @@ import "components/generic/Modal.css";
 
 export const GalleryImage = ({ image }) => {
   const [showModal, setShowModal] = useState(false);
+
   return (
     <div>
       <div>Name: {image?.name}</div>
