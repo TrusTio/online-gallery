@@ -1,5 +1,5 @@
 import React from "react";
-import { signIn, signUp } from "components/api/gallery";
+import { signIn, signUp, signOut } from "components/api/gallery";
 
 const AuthContext = React.createContext();
 
@@ -41,9 +41,28 @@ export const AuthContextProvider = ({ children }) => {
     }
   };
 
+  const logout = async () => {
+    try {
+      const res = await signOut();
+      setIsAuthenticated(false);
+    } catch (err) {
+      console.log(JSON.stringify(err));
+      setError(err?.response?.data?.message);
+      console.log(error);
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, error, login, createAccount, isAuthenticated }}
+      value={{
+        user,
+        loading,
+        error,
+        login,
+        createAccount,
+        logout,
+        isAuthenticated,
+      }}
     >
       {children}
     </AuthContext.Provider>

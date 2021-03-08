@@ -16,3 +16,8 @@ export const signIn = async ({ username, password }) => {
   });
   return res;
 };
+
+export const signOut = async () => {
+  const res = await axios.get("/logout");
+  return res;
+};

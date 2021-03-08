@@ -4,7 +4,7 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 
 export const AppBar = ({ children }) => {
-  const { user, isAuthenticated } = useAuth();
+  const { user, isAuthenticated, logout } = useAuth();
 
   if (isAuthenticated) {
     return (
@@ -24,7 +24,9 @@ export const AppBar = ({ children }) => {
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-info">Search</Button>
-          <Button variant="danger">Logout</Button>
+          <Button variant="danger" onClick={logout}>
+            Logout
+          </Button>
         </Form>
       </Navbar>
     );
