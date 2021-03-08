@@ -6,21 +6,21 @@ import { useAuth } from "contexts/AuthContext";
 export const AppBar = ({ children }) => {
   const { user, isAuthenticated } = useAuth();
 
-  if(isAuthenticated){
+  if (isAuthenticated) {
     return (
       <Navbar bg="dark" variant="dark">
         <Link to="/">
           <Navbar.Brand>Personal Gallery</Navbar.Brand>
         </Link>
-  
+
         <Nav className="mr-auto">
-        <Nav.Link as={NavLink} to="/galleries">
+          <Nav.Link as={NavLink} to="/galleries">
             Galleries
           </Nav.Link>
         </Nav>
-  
+
         {children}
-  
+
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-info">Search</Button>
@@ -28,13 +28,13 @@ export const AppBar = ({ children }) => {
         </Form>
       </Navbar>
     );
-  } else{
+  } else {
     return (
       <Navbar bg="dark" variant="dark">
         <Link to="/">
           <Navbar.Brand>Personal Gallery</Navbar.Brand>
         </Link>
-  
+
         <Nav className="mr-auto">
           <Nav.Link as={NavLink} to="/signup">
             Sign up
@@ -43,9 +43,9 @@ export const AppBar = ({ children }) => {
             Login
           </Nav.Link>
         </Nav>
-  
+
         {children}
-  
+
         <Form inline>
           <FormControl type="text" placeholder="Search" className="mr-sm-2" />
           <Button variant="outline-info">Search</Button>
