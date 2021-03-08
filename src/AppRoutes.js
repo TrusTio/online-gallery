@@ -5,9 +5,9 @@ import { GalleriesPage, GalleryContents } from "pages";
 import { useAuth } from "contexts/AuthContext";
 
 export const AppRoutes = () => {
-  const { isAuthenticated } = useAuth();
+  const { user } = useAuth();
 
-  if (isAuthenticated) {
+  if (user) {
     return (
       <Switch>
         <Route path="/galleries" exact component={GalleriesPage} />

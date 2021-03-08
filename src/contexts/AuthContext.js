@@ -1,14 +1,12 @@
 import React from "react";
 import { signIn, signUp, signOut } from "components/api/gallery";
-import { useHistory } from "react-router-dom";
 
 const AuthContext = React.createContext();
 
-export const AuthContextProvider = ({ children }) => {
+export const AuthContextProvider = ({ children, userData }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
-  const [user, setUser] = React.useState(null);
-  const [isAuthenticated, setIsAuthenticated] = React.useState(false);
+  const [user, setUser] = React.useState(userData);
 
   const login = async ({ username, password }) => {
     if (loading) {
@@ -20,9 +18,8 @@ export const AuthContextProvider = ({ children }) => {
       setUser(response?.data);
 
       if (response.status === 200) {
-        setIsAuthenticated(true);
+        setUser(response?.data);
       } else {
-        setIsAuthenticated(false);
       }
     } catch (err) {
       setError(err?.response?.data?.message);
@@ -33,8 +30,7 @@ export const AuthContextProvider = ({ children }) => {
 
   const createAccount = async ({ username, email, password }) => {
     try {
-      const user = await signUp({ username, email, password });
-      setUser(user);
+      await signUp({ username, email, password });
     } catch (err) {
       console.log(JSON.stringify(err));
       setError(err?.response?.data?.message);
@@ -44,8 +40,8 @@ export const AuthContextProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      const res = await signOut();
-      setIsAuthenticated(false);
+      await signOut();
+      setUser(null);
     } catch (err) {
       console.log(JSON.stringify(err));
       setError(err?.response?.data?.message);
@@ -62,7 +58,6 @@ export const AuthContextProvider = ({ children }) => {
         login,
         createAccount,
         logout,
-        isAuthenticated,
       }}
     >
       {children}

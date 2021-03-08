@@ -4,9 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 
 export const AppBar = ({ children }) => {
-  const { isAuthenticated, logout } = useAuth();
+  const { user, logout } = useAuth();
 
-  if (isAuthenticated) {
+  if (user) {
     return (
       <Navbar bg="dark" variant="dark">
         <Link to="/">
