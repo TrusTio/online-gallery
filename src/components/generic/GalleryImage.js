@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Modal } from "react-bootstrap";
-import "components/generic/Modal.css";
+import "components/generic/GalleryImage.css";
 
 export const GalleryImage = ({ image }) => {
   const [showModal, setShowModal] = useState(false);

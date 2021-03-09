@@ -1,6 +1,6 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-import folderIcon from "icons/folder-icon.png";
+import folderIcon from "assets/images/folder-icon.png";
 import "components/generic/GalleryFolder.css";
 
 export const GalleryFolder = ({ gallery }) => {
