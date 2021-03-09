@@ -1,7 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import folderIcon from "assets/images/folder-icon.png";
-import "components/generic/GalleryFolder.css";
+import styled from "styled-components";
 
 export const GalleryFolder = ({ gallery }) => {
   const history = useHistory();
@@ -14,9 +14,27 @@ export const GalleryFolder = ({ gallery }) => {
     });
 
   return (
-    <div onClick={goContentsPage} className="folderContainer">
-      <img src={folderIcon} className="folderIcon" alt="icon" />
-      <div className="folderName">{gallery?.name}</div>
-    </div>
+    <FolderContainer onClick={goContentsPage}>
+      <FolderIcon src={folderIcon} className="folderIcon" alt="icon" />
+      <FolderName className="folderName">{gallery?.name}</FolderName>
+    </FolderContainer>
   );
 };
+
+const FolderContainer = styled.div`
+  margin: 0.75vw 0.75vw 0.75vw 0.75vw;
+`;
+
+const FolderIcon = styled.img`
+  height: 10vw;
+  width: 10vw;
+`;
+
+const FolderName = styled.div`
+  font-size: 1.5vw;
+  text-align: center;
+  width: 10vw;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;

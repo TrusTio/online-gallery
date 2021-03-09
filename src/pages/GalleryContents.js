@@ -3,7 +3,6 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleryImages, uploadImage } from "components/api/gallery";
 import { GalleryImage } from "components/generic/GalleryImage";
-import "pages/GalleryContents.css";
 
 export const GalleryContents = () => {
   const location = useLocation();
