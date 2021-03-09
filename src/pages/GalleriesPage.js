@@ -18,7 +18,9 @@ export const GalleriesPage = () => {
   }, []);
 
   if (galleries === null) {
-    return <div>No galleries present.</div>;
+    return <div>Loading...</div>;
+  } else if (galleries?.length === 0) {
+    return <div>No galleries present</div>;
   } else {
     return galleries.map((gallery) => {
       return (
