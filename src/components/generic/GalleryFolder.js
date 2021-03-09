@@ -14,9 +14,9 @@ export const GalleryFolder = ({ gallery }) => {
     });
 
   return (
-    <div onClick={goContentsPage}>
+    <div onClick={goContentsPage} className="folderContainer">
       <img src={folderIcon} className="folderIcon" alt="icon" />
-      <div>Name: {gallery?.name}</div>
+      <div className="folderName">{gallery?.name}</div>
     </div>
   );
 };
