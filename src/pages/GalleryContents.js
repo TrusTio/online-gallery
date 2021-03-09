@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleryImages, uploadImage } from "components/api/gallery";
 import { GalleryImage } from "components/generic/GalleryImage";
+import "pages/GalleryContents.css";
 
 export const GalleryContents = () => {
   const location = useLocation();
@@ -51,13 +52,18 @@ export const GalleryContents = () => {
           style={{ display: "none" }}
           onChange={onChangeFile.bind(this)}
         />
+
         <button onClick={onButtonClick}>Upload</button>
+
         {galleryContents?.length === 0 ? (
           <div> No gallery contents present</div>
         ) : null}
-        {galleryContents.map((image) => {
-          return <GalleryImage key={image?.id} image={image}></GalleryImage>;
-        })}
+
+        <div>
+          {galleryContents.map((image) => {
+            return <GalleryImage key={image?.id} image={image}></GalleryImage>;
+          })}
+        </div>
       </div>
     );
   }

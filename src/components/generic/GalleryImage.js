@@ -1,18 +1,27 @@
 import React, { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { Modal, Card } from "react-bootstrap";
 import "components/generic/GalleryImage.css";
+import styled from "styled-components";
+
+const MyCard = styled(Card)`
+  background-color: ${(props) => props.theme.modalBody};
+  border: 2px solid ${(props) => props.theme.modalBorder};
+`;
 
 export const GalleryImage = ({ image }) => {
   const [showModal, setShowModal] = useState(false);
 
   return (
-    <div>
-      <div>Name: {image?.name}</div>
-      <img
-        onClick={() => setShowModal(true)}
-        src={image?.thumbnail}
-        alt="Not available"
-      ></img>
+    <div className="galleryContentsContainer">
+      <MyCard>
+        <img
+          onClick={() => setShowModal(true)}
+          src={image?.thumbnail}
+          className="imgThumbnail"
+          alt="Not available"
+        ></img>
+        <div className="imgName">Name: {image?.name}</div>
+      </MyCard>
 
       <Modal
         show={showModal}
@@ -23,12 +32,7 @@ export const GalleryImage = ({ image }) => {
           <Modal.Title>{image.name}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <div> ASD</div>
-          <img
-            src={image?.url}
-            alt="Not available"
-            className="modalImage"
-          ></img>
+          <img src={image?.url} alt="Not available" className="modalImg"></img>
         </Modal.Body>
       </Modal>
     </div>
