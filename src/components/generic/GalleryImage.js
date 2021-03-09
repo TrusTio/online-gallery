@@ -32,8 +32,8 @@ export const GalleryImage = ({ image }) => {
 };
 
 const ImageCard = styled(Card)`
-  background-color: ${(props) => props.theme.modalBody};
-  border: 2px solid ${(props) => props.theme.modalBorder};
+  background-color: ${(props) => props.theme.cardBody};
+  border: 2px solid ${(props) => props.theme.cardBorder};
 `;
 
 const ImageContainer = styled.div`

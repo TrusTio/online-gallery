@@ -2,13 +2,14 @@ import React from "react";
 import { Navbar, Nav, Button, Form, FormControl } from "react-bootstrap";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
+import styled from "styled-components";
 
 export const AppBar = ({ children }) => {
   const { user, logout } = useAuth();
 
   if (user) {
     return (
-      <Navbar bg="dark" variant="dark">
+      <CustomNavBar>
         <Link to="/">
           <Navbar.Brand>Personal Gallery</Navbar.Brand>
         </Link>
@@ -35,7 +36,7 @@ export const AppBar = ({ children }) => {
             Logout
           </Button>
         </Form>
-      </Navbar>
+      </CustomNavBar>
     );
   } else {
     return (
@@ -63,3 +64,7 @@ export const AppBar = ({ children }) => {
     );
   }
 };
+
+const CustomNavBar = styled(Navbar)`
+  background-color: ${(props) => props.theme.navbarBody};
+`;
