@@ -15,4 +15,6 @@ export const darkTheme = {
   cardBody: "#4d4b4f",
   cardBorder: "rgba(63, 160, 171, 1)",
   navbarBody: "#665b70",
+  actionBarBody: "#4d4b4f",
+  actionBarBorder: "rgba(63, 160, 171, 1)",
 };

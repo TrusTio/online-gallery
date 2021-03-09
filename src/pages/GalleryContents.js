@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleryImages, uploadImage } from "components/api/gallery";
 import { GalleryImage } from "components/generic/GalleryImage";
+import { ActionBar } from "components/generic/styled";
 
 export const GalleryContents = () => {
   const location = useLocation();
@@ -52,7 +53,9 @@ export const GalleryContents = () => {
           onChange={onChangeFile.bind(this)}
         />
 
-        <button onClick={onButtonClick}>Upload</button>
+        <ActionBar>
+          <button onClick={onButtonClick}>Upload</button>
+        </ActionBar>
 
         {galleryContents?.length === 0 ? (
           <div> No gallery contents present</div>

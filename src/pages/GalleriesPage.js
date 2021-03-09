@@ -3,6 +3,7 @@ import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
 import styled from "styled-components";
+import { ActionBar } from "components/generic/styled";
 
 export const GalleriesPage = () => {
   const [galleries, setGalleries] = useState(null);
@@ -18,17 +19,32 @@ export const GalleriesPage = () => {
   }, []);
 
   if (galleries === null) {
-    return <div>Loading...</div>;
-  } else if (galleries?.length === 0) {
-    return <div>No galleries present</div>;
+    return <div></div>;
   } else {
-    return galleries.map((gallery) => {
-      return (
-        <FoldersContainer>
-          <GalleryFolder key={gallery?.id} gallery={gallery}></GalleryFolder>
-        </FoldersContainer>
-      );
-    });
+    return (
+      <div>
+        <ActionBar>
+          <button>Create </button>
+        </ActionBar>
+
+        {galleries?.length === 0 ? (
+          <div> No gallery contents present</div>
+        ) : null}
+
+        <div>
+          {galleries.map((gallery) => {
+            return (
+              <FoldersContainer>
+                <GalleryFolder
+                  key={gallery?.id}
+                  gallery={gallery}
+                ></GalleryFolder>
+              </FoldersContainer>
+            );
+          })}
+        </div>
+      </div>
+    );
   }
 };
 
