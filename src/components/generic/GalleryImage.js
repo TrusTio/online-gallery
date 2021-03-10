@@ -1,40 +1,23 @@
-import React, { useState } from "react";
-import { Modal, Card } from "react-bootstrap";
+import React from "react";
+import { Card } from "react-bootstrap";
 import styled from "styled-components";
+import ModalImage from "react-modal-image";
 
 export const GalleryImage = ({ image }) => {
-  const [showModal, setShowModal] = useState(false);
-
   return (
     <ImageContainer>
       <ImageCard>
-        <ImageThumbnailContainer
-          onClick={() => setShowModal(true)}
-          src={image?.thumbnail}
-          className="imgThumbnail"
-          alt="Not available"
+        <CustomModalImage
+          small={image?.thumbnail}
+          large={image?.url}
+          alt={image?.name}
+          showRotate
         />
-
         <ImageNameContainer>{image?.name}</ImageNameContainer>
       </ImageCard>
-
-      <CustomModal show={showModal} onHide={() => setShowModal(false)}>
-        <CustomModalHeader closeButton parent>
-          <CustomModal.Title>{image.name}</CustomModal.Title>
-        </CustomModalHeader>
-
-        <CustomModalBody>
-          <ModalImage src={image?.url} alt="Not available" />
-        </CustomModalBody>
-      </CustomModal>
     </ImageContainer>
   );
 };
-
-const ImageCard = styled(Card)`
-  background-color: ${(props) => props.theme.cardBody};
-  border: 2px solid ${(props) => props.theme.cardBorder};
-`;
 
 const ImageContainer = styled.div`
   float: left;
@@ -42,14 +25,15 @@ const ImageContainer = styled.div`
   margin: 0.75vw 0.75vw 0.75vw 0.75vw;
 `;
 
-const ImageThumbnailContainer = styled.img`
-  display: block;
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
+const ImageCard = styled(Card)`
+  background-color: ${(props) => props.theme.cardBody};
+  border: 2px solid ${(props) => props.theme.cardBorder};
 `;
 
+const CustomModalImage = styled(ModalImage)`
+  width: 100%;
+  height: 100%;
+`;
 const ImageNameContainer = styled.div`
   font-size: 1.5vw;
   text-align: center;
@@ -57,23 +41,4 @@ const ImageNameContainer = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-const ModalImage = styled.img`
-  max-width: 100%;
-  max-height: 100%;
-`;
-
-const CustomModal = styled(Modal)`
-  width: 95vw;
-  max-width: none !important;
-  height: 95vw;
-`;
-
-const CustomModalHeader = styled(CustomModal.Header)`
-  background-color: ${(props) => props.theme.modalBody};
-`;
-
-const CustomModalBody = styled(CustomModal.Body)`
-  background-color: ${(props) => props.theme.modalBody};
 `;
