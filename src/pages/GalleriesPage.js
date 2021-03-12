@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
@@ -15,7 +15,7 @@ export const GalleriesPage = () => {
 
   useEffect(() => {
     getUserGalleries();
-  }, []);
+  }, [galleries]);
 
   if (galleries === null) {
     return <div></div>;
@@ -36,6 +36,10 @@ export const GalleriesPage = () => {
               <GalleryFolder
                 key={gallery?.id}
                 gallery={gallery}
+                userId={user.id}
+                updateContents={() => {
+                  getUserGalleries();
+                }}
               ></GalleryFolder>
             );
           })}

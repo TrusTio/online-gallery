@@ -4,8 +4,9 @@ import folderIcon from "assets/images/folder-icon.png";
 import styled from "styled-components";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
+import { deleteGallery } from "components/api/gallery/gallery";
 
-export const GalleryFolder = ({ gallery }) => {
+export const GalleryFolder = ({ gallery, updateContents, userId }) => {
   const history = useHistory();
   const goContentsPage = () =>
     history.push({
@@ -31,7 +32,13 @@ export const GalleryFolder = ({ gallery }) => {
         <MenuItem data={{ action: "rename" }} onClick={handleClick}>
           Rename
         </MenuItem>
-        <MenuItem data={{ action: "delete" }} onClick={handleClick}>
+        <MenuItem
+          data={{ action: "delete" }}
+          onClick={() => {
+            deleteGallery(userId, gallery.id);
+            updateContents();
+          }}
+        >
           Delete
         </MenuItem>
       </CustomContextMenu>
