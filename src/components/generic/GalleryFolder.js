@@ -23,6 +23,7 @@ export const GalleryFolder = ({ gallery }) => {
 
 const FolderContainer = styled.div`
   margin: 0.75vw 0.75vw 0.75vw 0.75vw;
+  float: left;
 `;
 
 const FolderIcon = styled.img`

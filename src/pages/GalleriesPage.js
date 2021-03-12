@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
-import styled from "styled-components";
 import { ActionBar } from "components/generic/styled";
 
 export const GalleriesPage = () => {
@@ -34,12 +33,10 @@ export const GalleriesPage = () => {
         <div>
           {galleries.map((gallery) => {
             return (
-              <FoldersContainer>
-                <GalleryFolder
-                  key={gallery?.id}
-                  gallery={gallery}
-                ></GalleryFolder>
-              </FoldersContainer>
+              <GalleryFolder
+                key={gallery?.id}
+                gallery={gallery}
+              ></GalleryFolder>
             );
           })}
         </div>
@@ -47,7 +44,3 @@ export const GalleriesPage = () => {
     );
   }
 };
-
-const FoldersContainer = styled.div`
-  float: left;
-`;

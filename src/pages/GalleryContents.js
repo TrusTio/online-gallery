@@ -52,6 +52,7 @@ export const GalleryContents = () => {
     const response = await getGalleryImages(user?.id, location.state.id);
     setGalleryContents(response);
   };
+
   useEffect(() => {
     getGalleryContents();
   }, []);
@@ -74,6 +75,11 @@ export const GalleryContents = () => {
         </ActionBar>
         <Container {...getRootProps({ refKey: "innerRef" })}>
           <div {...getInputProps()} />
+          {isDragActive ? (
+            <p>Drop the files here ...</p>
+          ) : (
+            <p>Drag 'n' drop some files here</p>
+          )}
           {galleryContents?.length === 0 ? (
             <div> No gallery contents present</div>
           ) : null}
