@@ -2,6 +2,8 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import folderIcon from "assets/images/folder-icon.png";
 import styled from "styled-components";
+import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import { CustomContextMenu } from "components/generic/styled";
 
 export const GalleryFolder = ({ gallery }) => {
   const history = useHistory();
@@ -13,11 +15,27 @@ export const GalleryFolder = ({ gallery }) => {
       },
     });
 
+  const handleClick = (event, data) => {
+    console.log(`clicked`, { event, data });
+  };
+
   return (
-    <FolderContainer onClick={goContentsPage}>
-      <FolderIcon src={folderIcon} className="folderIcon" alt="icon" />
-      <FolderName className="folderName">{gallery?.name}</FolderName>
-    </FolderContainer>
+    <div>
+      <ContextMenuTrigger id={String(gallery.id)}>
+        <FolderContainer onClick={goContentsPage}>
+          <FolderIcon src={folderIcon} className="folderIcon" alt="icon" />
+          <FolderName className="folderName">{gallery?.name}</FolderName>
+        </FolderContainer>
+      </ContextMenuTrigger>
+      <CustomContextMenu id={String(gallery.id)}>
+        <MenuItem data={{ action: "rename" }} onClick={handleClick}>
+          Rename
+        </MenuItem>
+        <MenuItem data={{ action: "delete" }} onClick={handleClick}>
+          Delete
+        </MenuItem>
+      </CustomContextMenu>
+    </div>
   );
 };
 

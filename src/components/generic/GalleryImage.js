@@ -2,20 +2,38 @@ import React from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
+import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
+import { CustomContextMenu } from "components/generic/styled";
 
 export const GalleryImage = ({ image }) => {
+  const handleClick = (event, data) => {
+    console.log(`clicked`, { event, data });
+  };
+
   return (
-    <ImageContainer>
-      <ImageCard>
-        <CustomModalImage
-          small={image?.thumbnail}
-          large={image?.url}
-          alt={image?.name}
-          showRotate
-        />
-        <ImageNameContainer>{image?.name}</ImageNameContainer>
-      </ImageCard>
-    </ImageContainer>
+    <div>
+      <ContextMenuTrigger id={String(image.id)}>
+        <ImageContainer>
+          <ImageCard>
+            <CustomModalImage
+              small={image?.thumbnail}
+              large={image?.url}
+              alt={image?.name}
+              showRotate
+            />
+            <ImageNameContainer>{image?.name}</ImageNameContainer>
+          </ImageCard>
+        </ImageContainer>
+      </ContextMenuTrigger>
+      <CustomContextMenu id={String(image.id)}>
+        <MenuItem data={{ action: "rename" }} onClick={handleClick}>
+          Rename
+        </MenuItem>
+        <MenuItem data={{ action: "delete" }} onClick={handleClick}>
+          Delete
+        </MenuItem>
+      </CustomContextMenu>
+    </div>
   );
 };
 

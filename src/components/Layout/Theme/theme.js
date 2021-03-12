@@ -4,6 +4,9 @@ export const lightTheme = {
   toggleBorder: "#FFF",
   gradient: "linear-gradient(#39598A, #79D7ED)",
   navbarBody: "#ba9ad6",
+
+  contextMenuBackground: "#363537",
+  contextMenuText: "#FAFAFA",
 };
 
 export const darkTheme = {
@@ -17,4 +20,6 @@ export const darkTheme = {
   navbarBody: "#665b70",
   actionBarBody: "#4d4b4f",
   actionBarBorder: "rgba(63, 160, 171, 1)",
+  contextMenuBackground: "#E2E2E2",
+  contextMenuText: "#363537",
 };
