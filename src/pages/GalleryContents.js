@@ -87,7 +87,13 @@ export const GalleryContents = () => {
           <div>
             {galleryContents.map((image) => {
               return (
-                <GalleryImage key={image?.id} image={image}></GalleryImage>
+                <GalleryImage
+                  key={image?.id}
+                  image={image}
+                  updateContents={() => {
+                    getGalleryContents();
+                  }}
+                ></GalleryImage>
               );
             })}
           </div>

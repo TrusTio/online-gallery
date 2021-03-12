@@ -4,8 +4,9 @@ import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
+import { deleteImage } from "components/api/gallery/image";
 
-export const GalleryImage = ({ image }) => {
+export const GalleryImage = ({ image, updateContents }) => {
   const handleClick = (event, data) => {
     console.log(`clicked`, { event, data });
   };
@@ -29,7 +30,13 @@ export const GalleryImage = ({ image }) => {
         <MenuItem data={{ action: "rename" }} onClick={handleClick}>
           Rename
         </MenuItem>
-        <MenuItem data={{ action: "delete" }} onClick={handleClick}>
+        <MenuItem
+          data={{ action: "delete" }}
+          onClick={() => {
+            deleteImage(image.url);
+            updateContents();
+          }}
+        >
           Delete
         </MenuItem>
       </CustomContextMenu>
