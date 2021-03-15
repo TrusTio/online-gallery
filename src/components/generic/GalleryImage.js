@@ -56,7 +56,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         centered
       >
         <CustomModalHeader closeButton>
-          <Modal.Title>Modal title</Modal.Title>
+          <Modal.Title>Rename {image?.name}</Modal.Title>
         </CustomModalHeader>
         <CustomModalBody>
           <Formik
