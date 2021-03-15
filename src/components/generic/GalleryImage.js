@@ -1,15 +1,15 @@
-import React from "react";
-import { Card } from "react-bootstrap";
+import React, { useState } from "react";
+import { Modal, Card, Button, Alert } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
-import { deleteImage } from "components/api/gallery/image";
+import { deleteImage, renameImage } from "components/api/gallery/image";
+import { Form, Field, Formik } from "formik";
 
 export const GalleryImage = ({ image, updateContents }) => {
-  const handleClick = (event, data) => {
-    console.log(`clicked`, { event, data });
-  };
+  const [showModal, setShowModal] = useState(false);
+  const [error, setError] = useState(null);
 
   return (
     <div>
@@ -26,8 +26,12 @@ export const GalleryImage = ({ image, updateContents }) => {
           </ImageCard>
         </ImageContainer>
       </ContextMenuTrigger>
+
       <CustomContextMenu id={String(image.id)}>
-        <MenuItem data={{ action: "rename" }} onClick={handleClick}>
+        <MenuItem
+          data={{ action: "rename" }}
+          onClick={() => setShowModal(true)}
+        >
           Rename
         </MenuItem>
         <MenuItem
@@ -40,6 +44,48 @@ export const GalleryImage = ({ image, updateContents }) => {
           Delete
         </MenuItem>
       </CustomContextMenu>
+
+      <CustomModal
+        show={showModal}
+        onHide={() => {
+          setShowModal(false);
+          setError(false);
+        }}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <CustomModalHeader closeButton>
+          <Modal.Title>Modal title</Modal.Title>
+        </CustomModalHeader>
+        <CustomModalBody>
+          <Formik
+            initialValues={{ newImageName: "" }}
+            onSubmit={(values) => {
+              const response = renameImage(image?.url, values?.newImageName);
+              response
+                .then(function (res) {
+                  console.log(res);
+                  if (res.status === 202) {
+                    updateContents();
+                    setShowModal(false);
+                  } else {
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setError(err?.response?.data?.message);
+                });
+            }}
+          >
+            <Form>
+              {error && <Alert variant="danger">{error}</Alert>}
+              <Field name="newImageName" label="Name" />
+              <Button type="submit">Change</Button>
+            </Form>
+          </Formik>
+        </CustomModalBody>
+      </CustomModal>
     </div>
   );
 };
@@ -66,4 +112,19 @@ const ImageNameContainer = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+const CustomModal = styled(Modal)`
+  padding: 1px;
+  width: 100%;
+  margin: 1px;
+  text-align: center;
+`;
+
+const CustomModalHeader = styled(CustomModal.Header)`
+  background-color: ${(props) => props.theme.modalBody};
+`;
+
+const CustomModalBody = styled(CustomModal.Body)`
+  background-color: ${(props) => props.theme.modalBody};
 `;
