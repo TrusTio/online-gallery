@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
 import { ActionBar } from "components/generic/styled";
 
 export const GalleriesPage = () => {
-  const [galleries, setGalleries] = useState(null);
+  const [galleries, setGalleries] = React.useState(null);
   const { user } = useAuth();
 
   const getUserGalleries = async () => {
@@ -15,7 +15,7 @@ export const GalleriesPage = () => {
 
   useEffect(() => {
     getUserGalleries();
-  }, [galleries]);
+  }, []);
 
   if (galleries === null) {
     return <div></div>;

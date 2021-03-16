@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Modal, Card, Button, Alert } from "react-bootstrap";
+import { ModalTitle, Card, Button, Alert } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
 import { deleteImage, renameImage } from "components/api/gallery/image";
 import { Form, Field, Formik } from "formik";
+import {
+  RenameModal,
+  RenameModalHeader,
+  RenameModalBody,
+} from "components/generic/styled";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showModal, setShowModal] = useState(false);
@@ -45,7 +50,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         </MenuItem>
       </CustomContextMenu>
 
-      <CustomModal
+      <RenameModal
         show={showModal}
         onHide={() => {
           setShowModal(false);
@@ -55,18 +60,17 @@ export const GalleryImage = ({ image, updateContents }) => {
         keyboard={false}
         centered
       >
-        <CustomModalHeader closeButton>
-          <Modal.Title>Rename {image?.name}</Modal.Title>
-        </CustomModalHeader>
-        <CustomModalBody>
+        <RenameModalHeader closeButton>
+          <ModalTitle>Rename {image?.name}</ModalTitle>
+        </RenameModalHeader>
+        <RenameModalBody>
           <Formik
             initialValues={{ newImageName: "" }}
             onSubmit={(values) => {
               const response = renameImage(image?.url, values?.newImageName);
               response
                 .then(function (res) {
-                  console.log(res);
-                  if (res.status === 202) {
+                  if (res.status === 204) {
                     updateContents();
                     setShowModal(false);
                   } else {
@@ -84,8 +88,8 @@ export const GalleryImage = ({ image, updateContents }) => {
               <Button type="submit">Change</Button>
             </Form>
           </Formik>
-        </CustomModalBody>
-      </CustomModal>
+        </RenameModalBody>
+      </RenameModal>
     </div>
   );
 };
@@ -112,19 +116,4 @@ const ImageNameContainer = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-`;
-
-const CustomModal = styled(Modal)`
-  padding: 1px;
-  width: 100%;
-  margin: 1px;
-  text-align: center;
-`;
-
-const CustomModalHeader = styled(CustomModal.Header)`
-  background-color: ${(props) => props.theme.modalBody};
-`;
-
-const CustomModalBody = styled(CustomModal.Body)`
-  background-color: ${(props) => props.theme.modalBody};
 `;
