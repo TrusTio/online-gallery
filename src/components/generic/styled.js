@@ -13,17 +13,17 @@ export const CustomContextMenu = styled(ContextMenu)`
   color: ${(props) => props.theme.contextMenuText};
 `;
 
-export const RenameModal = styled(Modal)`
+export const ThemedModal = styled(Modal)`
   padding: 1px;
   width: 100%;
   margin: 1px;
   text-align: center;
 `;
 
-export const RenameModalHeader = styled(RenameModal.Header)`
+export const ThemedModalHeader = styled(ThemedModal.Header)`
   background-color: ${(props) => props.theme.modalBody};
 `;
 
-export const RenameModalBody = styled(RenameModal.Body)`
+export const ThemedModalBody = styled(ThemedModal.Body)`
   background-color: ${(props) => props.theme.modalBody};
 `;

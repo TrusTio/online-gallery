@@ -6,9 +6,9 @@ import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
 import { deleteGallery, renameGallery } from "components/api/gallery/gallery";
 import {
-  RenameModal,
-  RenameModalHeader,
-  RenameModalBody,
+  ThemedModal,
+  ThemedModalHeader,
+  ThemedModalBody,
 } from "components/generic/styled";
 import { Form, Field, Formik } from "formik";
 import { Button, Alert, ModalTitle } from "react-bootstrap";
@@ -54,7 +54,7 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
         </MenuItem>
       </CustomContextMenu>
 
-      <RenameModal
+      <ThemedModal
         show={showModal}
         onHide={() => {
           setShowModal(false);
@@ -64,10 +64,10 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
         keyboard={false}
         centered
       >
-        <RenameModalHeader closeButton>
+        <ThemedModalHeader closeButton>
           <ModalTitle>Rename {gallery?.name}</ModalTitle>
-        </RenameModalHeader>
-        <RenameModalBody>
+        </ThemedModalHeader>
+        <ThemedModalBody>
           <Formik
             initialValues={{ newGalleryName: "" }}
             onSubmit={(values) => {
@@ -96,8 +96,8 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
               <Button type="submit">Change</Button>
             </Form>
           </Formik>
-        </RenameModalBody>
-      </RenameModal>
+        </ThemedModalBody>
+      </ThemedModal>
     </div>
   );
 };

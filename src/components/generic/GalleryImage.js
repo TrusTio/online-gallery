@@ -7,13 +7,14 @@ import { CustomContextMenu } from "components/generic/styled";
 import { deleteImage, renameImage } from "components/api/gallery/image";
 import { Form, Field, Formik } from "formik";
 import {
-  RenameModal,
-  RenameModalHeader,
-  RenameModalBody,
+  ThemedModal,
+  ThemedModalHeader,
+  ThemedModalBody,
 } from "components/generic/styled";
 
 export const GalleryImage = ({ image, updateContents }) => {
-  const [showModal, setShowModal] = useState(false);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [error, setError] = useState(null);
 
   return (
@@ -35,14 +36,15 @@ export const GalleryImage = ({ image, updateContents }) => {
       <CustomContextMenu id={String(image.id)}>
         <MenuItem
           data={{ action: "rename" }}
-          onClick={() => setShowModal(true)}
+          onClick={() => setShowRenameModal(true)}
         >
           Rename
         </MenuItem>
         <MenuItem
           data={{ action: "delete" }}
           onClick={() => {
-            deleteImage(image.url);
+            setShowDeleteModal(true);
+            // deleteImage(image.url);
             updateContents();
           }}
         >
@@ -50,20 +52,20 @@ export const GalleryImage = ({ image, updateContents }) => {
         </MenuItem>
       </CustomContextMenu>
 
-      <RenameModal
-        show={showModal}
+      <ThemedModal
+        show={showRenameModal}
         onHide={() => {
-          setShowModal(false);
+          setShowRenameModal(false);
           setError(false);
         }}
         backdrop="static"
         keyboard={false}
         centered
       >
-        <RenameModalHeader closeButton>
+        <ThemedModalHeader closeButton>
           <ModalTitle>Rename {image?.name}</ModalTitle>
-        </RenameModalHeader>
-        <RenameModalBody>
+        </ThemedModalHeader>
+        <ThemedModalBody>
           <Formik
             initialValues={{ newImageName: "" }}
             onSubmit={(values) => {
@@ -72,7 +74,7 @@ export const GalleryImage = ({ image, updateContents }) => {
                 .then(function (res) {
                   if (res.status === 204) {
                     updateContents();
-                    setShowModal(false);
+                    setShowRenameModal(false);
                   } else {
                   }
                 })
@@ -88,8 +90,49 @@ export const GalleryImage = ({ image, updateContents }) => {
               <Button type="submit">Change</Button>
             </Form>
           </Formik>
-        </RenameModalBody>
-      </RenameModal>
+        </ThemedModalBody>
+      </ThemedModal>
+
+      <ThemedModal
+        show={showDeleteModal}
+        onHide={() => {
+          setShowDeleteModal(false);
+          setError(false);
+        }}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <ThemedModalHeader closeButton>
+          <ModalTitle> Do you want to delete {image?.name}?</ModalTitle>
+        </ThemedModalHeader>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <ThemedModalBody>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Close
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              const response = deleteImage(image.url);
+              response
+                .then(function (res) {
+                  if (res.status === 204) {
+                    updateContents();
+                    setShowRenameModal(false);
+                  } else {
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setError(err?.response?.data?.message);
+                });
+            }}
+          >
+            Delete
+          </Button>
+        </ThemedModalBody>
+      </ThemedModal>
     </div>
   );
 };
