@@ -15,7 +15,8 @@ import { Button, Alert, ModalTitle } from "react-bootstrap";
 
 export const GalleryFolder = ({ gallery, updateContents, userId }) => {
   const history = useHistory();
-  const [showModal, setShowModal] = useState(false);
+  const [showRenameModal, setShowRenameModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [error, setError] = useState(null);
 
   const goContentsPage = () =>
@@ -38,7 +39,7 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
         <MenuItem
           data={{ action: "rename" }}
           onClick={() => {
-            setShowModal(true);
+            setShowRenameModal(true);
           }}
         >
           Rename
@@ -46,8 +47,7 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
         <MenuItem
           data={{ action: "delete" }}
           onClick={() => {
-            deleteGallery(userId, gallery.id);
-            updateContents();
+            setShowDeleteModal(true);
           }}
         >
           Delete
@@ -55,9 +55,9 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
       </CustomContextMenu>
 
       <ThemedModal
-        show={showModal}
+        show={showRenameModal}
         onHide={() => {
-          setShowModal(false);
+          setShowRenameModal(false);
           setError(false);
         }}
         backdrop="static"
@@ -80,7 +80,7 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
                 .then(function (res) {
                   if (res.status === 204) {
                     updateContents();
-                    setShowModal(false);
+                    setShowRenameModal(false);
                   } else {
                   }
                 })
@@ -96,6 +96,47 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
               <Button type="submit">Change</Button>
             </Form>
           </Formik>
+        </ThemedModalBody>
+      </ThemedModal>
+
+      <ThemedModal
+        show={showDeleteModal}
+        onHide={() => {
+          setShowDeleteModal(false);
+          setError(false);
+        }}
+        backdrop="static"
+        keyboard={false}
+        centered
+      >
+        <ThemedModalHeader closeButton>
+          <ModalTitle> Do you want to delete {gallery?.name}?</ModalTitle>
+        </ThemedModalHeader>
+        {error && <Alert variant="danger">{error}</Alert>}
+        <ThemedModalBody>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Close
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              const response = deleteGallery(userId, gallery.id);
+              response
+                .then(function (res) {
+                  if (res.status === 204) {
+                    updateContents();
+                    setShowDeleteModal(false);
+                  } else {
+                  }
+                })
+                .catch((err) => {
+                  console.log(err);
+                  setError(err?.response?.data?.message);
+                });
+            }}
+          >
+            Delete
+          </Button>
         </ThemedModalBody>
       </ThemedModal>
     </div>
