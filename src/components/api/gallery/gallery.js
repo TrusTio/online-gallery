@@ -17,3 +17,8 @@ export const renameGallery = async (userId, galleryId, newGalleryName) => {
   );
   return res;
 };
+
+export const createGallery = async (gallery) => {
+  const res = await axios.post("api/v1/galleries", gallery);
+  return res;
+};

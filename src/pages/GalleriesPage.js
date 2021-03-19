@@ -1,11 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
-import { ActionBar } from "components/generic/styled";
+import {
+  ActionBar,
+  ThemedModal,
+  ThemedModalBody,
+  ThemedModalHeader,
+} from "components/generic/styled";
+import { Alert, Button } from "react-bootstrap";
+import { Field, Form, Formik } from "formik";
+import { createGallery } from "components/api/gallery/gallery";
 
 export const GalleriesPage = () => {
   const [galleries, setGalleries] = React.useState(null);
+  const [showCreateModal, setShowCreateModal] = React.useState(null);
+  const [error, setError] = useState(null);
   const { user } = useAuth();
 
   const getUserGalleries = async () => {
@@ -23,9 +33,53 @@ export const GalleriesPage = () => {
     return (
       <div>
         <ActionBar>
-          <button>Create </button>
+          <Button
+            onClick={() => {
+              setShowCreateModal(true);
+            }}
+          >
+            Create{" "}
+          </Button>
         </ActionBar>
 
+        <ThemedModal
+          show={showCreateModal}
+          onHide={() => {
+            setShowCreateModal(false);
+          }}
+          backdrop="static"
+          keyboard={false}
+          centered
+        >
+          <ThemedModalHeader closeButton />
+          <ThemedModalBody>
+            <Formik
+              initialValues={{ name: "", userId: user.id }}
+              onSubmit={(values) => {
+                const response = createGallery(values);
+                response
+                  .then(function (res) {
+                    console.log(response);
+                    if (res.status === 201) {
+                      getUserGalleries();
+                      setShowCreateModal(false);
+                    } else {
+                    }
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                    setError(err?.response?.data?.message);
+                  });
+              }}
+            >
+              <Form>
+                {error && <Alert variant="danger">{error}</Alert>}
+                <Field name="name" label="Name" />
+                <Button type="submit">Create</Button>
+              </Form>
+            </Formik>
+          </ThemedModalBody>
+        </ThemedModal>
         {galleries?.length === 0 ? (
           <div> No gallery contents present</div>
         ) : null}
