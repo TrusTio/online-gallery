@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { ModalTitle, Card, Button, Alert } from "react-bootstrap";
+import { Card, Button, Alert } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
@@ -63,7 +63,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         centered
       >
         <ThemedModalHeader closeButton>
-          <ModalTitle>Rename {image?.name}</ModalTitle>
+          <ThemedModal.Title>Rename {image?.name}</ThemedModal.Title>
         </ThemedModalHeader>
         <ThemedModalBody>
           <Formik
@@ -104,7 +104,9 @@ export const GalleryImage = ({ image, updateContents }) => {
         centered
       >
         <ThemedModalHeader closeButton>
-          <ModalTitle> Do you want to delete {image?.name}?</ModalTitle>
+          <ThemedModal.Title>
+            Do you want to delete {image?.name}?
+          </ThemedModal.Title>
         </ThemedModalHeader>
         {error && <Alert variant="danger">{error}</Alert>}
         <ThemedModalBody>
