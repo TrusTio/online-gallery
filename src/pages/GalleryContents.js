@@ -6,6 +6,7 @@ import { GalleryImage } from "components/generic/GalleryImage";
 import { ActionBar } from "components/generic/styled";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
+import { Button } from "react-bootstrap";
 
 export const GalleryContents = () => {
   const location = useLocation();
@@ -71,7 +72,7 @@ export const GalleryContents = () => {
         />
 
         <ActionBar>
-          <button onClick={onButtonClick}>Upload</button>
+          <Button onClick={onButtonClick}>Upload</Button>
         </ActionBar>
         <Container {...getRootProps({ refKey: "innerRef" })}>
           <div {...getInputProps()} />
