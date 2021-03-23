@@ -44,7 +44,6 @@ export const GalleryImage = ({ image, updateContents }) => {
           data={{ action: "delete" }}
           onClick={() => {
             setShowDeleteModal(true);
-            // deleteImage(image.url);
             updateContents();
           }}
         >
@@ -87,7 +86,16 @@ export const GalleryImage = ({ image, updateContents }) => {
             <Form>
               {error && <Alert variant="danger">{error}</Alert>}
               <Field name="newImageName" label="Name" />
-              <Button type="submit">Change</Button>
+              <div>
+                <Button
+                  variant="secondary"
+                  onClick={() => setShowRenameModal(false)}
+                >
+                  Close
+                </Button>
+
+                <Button type="submit">Change</Button>
+              </div>
             </Form>
           </Formik>
         </ThemedModalBody>
