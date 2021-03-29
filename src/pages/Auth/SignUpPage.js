@@ -4,13 +4,17 @@ import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 
 export const SignUpPage = () => {
-  const { error, createAccount } = useAuth();
+  const { error, setError, createAccount } = useAuth();
 
   return (
     <Formik
-      initialValues={{ username: "", email: "", password: "" }}
+      initialValues={{ username: "", email: "", password: "", password2: "" }}
       onSubmit={(values) => {
-        createAccount(values);
+        if (values?.password === values?.password2) {
+          createAccount(values);
+        } else {
+          setError("Passwords do not match!");
+        }
       }}
     >
       {() => {
@@ -20,6 +24,7 @@ export const SignUpPage = () => {
             <Field name="username" label="Username" />
             <Field name="email" label="Email" />
             <Field name="password" label="Password" type="password" />
+            <Field name="password2" label="Password2" type="password" />
             <Button type="submit">Sign Up</Button>
           </Form>
         );

@@ -55,6 +55,7 @@ export const AuthContextProvider = ({ children, userData }) => {
         user,
         loading,
         error,
+        setError,
         login,
         createAccount,
         logout,
