@@ -1,16 +1,17 @@
 import React from "react";
 import { Form, Field, Formik } from "formik";
-import { Button, Alert, Card } from "react-bootstrap";
+import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
+import { ThemedFormCard } from "components/generic/styled";
 
 export const SignUpPage = () => {
   const { error, setError, createAccount } = useAuth();
 
   return (
     <MyContainer>
-      <MyCard>
-        <Card.Body>
+      <ThemedFormCard>
+        <ThemedFormCard.Body>
           <Formik
             initialValues={{
               username: "",
@@ -40,8 +41,8 @@ export const SignUpPage = () => {
               );
             }}
           </Formik>
-        </Card.Body>
-      </MyCard>
+        </ThemedFormCard.Body>
+      </ThemedFormCard>
     </MyContainer>
   );
 };
@@ -49,18 +50,4 @@ export const SignUpPage = () => {
 const MyContainer = styled.div`
   width: 100vh;
   height: 100vh;
-`;
-
-const MyCard = styled(Card)`
-  color: white;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 25rem;
-  text-align: center;
-  background-color: #353a40;
-  border-style: groove;
-  border-color: rgba(63, 160, 171, 1);
-  border-width: 0.25rem;
 `;
