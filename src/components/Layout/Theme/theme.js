@@ -22,4 +22,5 @@ export const darkTheme = {
   actionBarBorder: "rgba(63, 160, 171, 1)",
   contextMenuBackground: "#E2E2E2",
   contextMenuText: "#363537",
+  formBorder: "rgba(63, 160, 171, 1)",
 };

@@ -38,6 +38,6 @@ export const ThemedFormCard = styled(Card)`
   text-align: center;
   background-color: #353a40;
   border-style: groove;
-  border-color: rgba(63, 160, 171, 1);
+  border-color: ${(props) => props.theme.formBorder};
   border-width: 0.25rem;
 `;
