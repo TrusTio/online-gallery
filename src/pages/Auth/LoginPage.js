@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Field, Formik } from "formik";
+import { TextInputField } from "components/generic/TextInput/TextInputField";
 import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
@@ -22,9 +23,14 @@ export const LoginPage = () => {
               return (
                 <Form>
                   {error && <Alert variant="danger">{error}</Alert>}
-                  <Field name="username" label="Username" />
-                  <Field name="password" label="Password" type="password" />
-                  <br></br>
+
+                  <TextInputField name="username" label="Username" />
+                  <TextInputField
+                    name="password"
+                    label="Password"
+                    type="password"
+                    autoComplete="current-password"
+                  />
                   <Button type="submit">Login</Button>
                 </Form>
               );
