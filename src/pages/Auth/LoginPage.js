@@ -5,6 +5,7 @@ import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
 import { ThemedFormCard } from "components/generic/styled";
+import { LoginValidationSchema } from "validations/schemas/login";
 
 export const LoginPage = () => {
   const { error, login } = useAuth();
@@ -18,6 +19,7 @@ export const LoginPage = () => {
             onSubmit={(values) => {
               login(values);
             }}
+            validationSchema={LoginValidationSchema}
           >
             {() => {
               return (

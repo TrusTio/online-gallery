@@ -5,6 +5,7 @@ import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
 import { ThemedFormCard } from "components/generic/styled";
 import { TextInputField } from "components/generic/TextInput/TextInputField";
+import { SignUpValidationSchema } from "validations/schemas/signup";
 
 export const SignUpPage = () => {
   const { error, setError, createAccount } = useAuth();
@@ -21,12 +22,13 @@ export const SignUpPage = () => {
               password2: "",
             }}
             onSubmit={(values) => {
-              if (values?.password === values?.password2) {
+              if (values?.password === values?.repeatPassword) {
                 createAccount(values);
               } else {
                 setError("Passwords do not match!");
               }
             }}
+            validationSchema={SignUpValidationSchema}
           >
             {() => {
               return (

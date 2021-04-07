@@ -9,8 +9,8 @@ export const DarkThemeToggle = ({ theme, toggleTheme }) => {
     <Switch
       onChange={toggleTheme}
       checked={theme === "dark" ? true : false}
-      uncheckedIcon={<MoonIcon style={{ fill: "red" }} />}
-      checkedIcon={<SunIcon fill="red" />}
+      uncheckedIcon={<MoonIcon />}
+      checkedIcon={<SunIcon />}
     ></Switch>
   );
 };
