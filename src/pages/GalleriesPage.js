@@ -9,8 +9,10 @@ import {
   ThemedModalHeader,
 } from "components/generic/styled";
 import { Alert, Button } from "react-bootstrap";
-import { Field, Form, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { createGallery } from "components/api/gallery/gallery";
+import { TextInputField } from "components/generic/TextInput/TextInputField";
+import { galleryNameValidationSchema } from "validations/schemas/galleryName";
 
 export const GalleriesPage = () => {
   const [galleries, setGalleries] = React.useState(null);
@@ -56,10 +58,10 @@ export const GalleriesPage = () => {
             <Formik
               initialValues={{ name: "", userId: user.id }}
               onSubmit={(values) => {
+                values.name = values?.galleryName;
                 const response = createGallery(values);
                 response
                   .then(function (res) {
-                    console.log(response);
                     if (res.status === 201) {
                       getUserGalleries();
                       setShowCreateModal(false);
@@ -71,10 +73,11 @@ export const GalleriesPage = () => {
                     setError(err?.response?.data?.message);
                   });
               }}
+              validationSchema={galleryNameValidationSchema}
             >
               <Form>
                 {error && <Alert variant="danger">{error}</Alert>}
-                <Field name="name" label="Name" />
+                <TextInputField name="galleryName" label="Gallery Name" />
                 <Button type="submit">Create</Button>
               </Form>
             </Formik>

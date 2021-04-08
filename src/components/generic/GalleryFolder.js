@@ -10,8 +10,10 @@ import {
   ThemedModalHeader,
   ThemedModalBody,
 } from "components/generic/styled";
-import { Form, Field, Formik } from "formik";
+import { Form, Formik } from "formik";
 import { Button, Alert, ModalTitle } from "react-bootstrap";
+import { TextInputField } from "./TextInput/TextInputField";
+import { galleryNameValidationSchema } from "validations/schemas/galleryName";
 
 export const GalleryFolder = ({ gallery, updateContents, userId }) => {
   const history = useHistory();
@@ -69,12 +71,12 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
         </ThemedModalHeader>
         <ThemedModalBody>
           <Formik
-            initialValues={{ newGalleryName: "" }}
+            initialValues={{ galleryName: "" }}
             onSubmit={(values) => {
               const response = renameGallery(
                 userId,
                 gallery.id,
-                values?.newGalleryName
+                values?.galleryName
               );
               response
                 .then(function (res) {
@@ -89,10 +91,11 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
                   setError(err?.response?.data?.message);
                 });
             }}
+            validationSchema={galleryNameValidationSchema}
           >
             <Form>
               {error && <Alert variant="danger">{error}</Alert>}
-              <Field name="newGalleryName" label="Name" />
+              <TextInputField name="galleryName" label="Gallery Name" />
               <Button type="submit">Change</Button>
             </Form>
           </Formik>
