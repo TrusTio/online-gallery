@@ -11,6 +11,8 @@ import {
   ThemedModalHeader,
   ThemedModalBody,
 } from "components/generic/styled";
+import { imageNameValidationSchema } from "validations/schemas/imageName";
+import { TextInputField } from "./TextInput/TextInputField";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
@@ -82,10 +84,11 @@ export const GalleryImage = ({ image, updateContents }) => {
                   setError(err?.response?.data?.message);
                 });
             }}
+            validationSchema={imageNameValidationSchema}
           >
             <Form>
               {error && <Alert variant="danger">{error}</Alert>}
-              <Field name="newImageName" label="Name" />
+              <TextInputField name="newImageName" label="Name" />
               <div>
                 <Button
                   variant="secondary"
