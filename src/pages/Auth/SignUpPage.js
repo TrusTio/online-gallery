@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Formik } from "formik";
 import { Button, Alert } from "react-bootstrap";
 import { useAuth } from "contexts/AuthContext";
@@ -10,6 +10,9 @@ import { SignUpValidationSchema } from "validations/schemas/signup";
 export const SignUpPage = () => {
   const { error, setError, createAccount } = useAuth();
 
+  useEffect(() => {
+    setError(null);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <MyContainer>
       <ThemedFormCard>

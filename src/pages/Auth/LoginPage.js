@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Form, Formik } from "formik";
 import { TextInputField } from "components/generic/TextInput/TextInputField";
 import { Button, Alert } from "react-bootstrap";
@@ -8,8 +8,11 @@ import { ThemedFormCard } from "components/generic/styled";
 import { LoginValidationSchema } from "validations/schemas/login";
 
 export const LoginPage = () => {
-  const { error, login } = useAuth();
+  const { error, login, setError } = useAuth();
 
+  useEffect(() => {
+    setError(null);
+  }, []);
   return (
     <MyContainer>
       <ThemedFormCard>
