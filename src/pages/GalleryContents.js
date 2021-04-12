@@ -103,4 +103,8 @@ export const GalleryContents = () => {
     );
   }
 };
-const Container = styled.div``;
+const Container = styled.div`
+  text-align: center;
+  height: 100vh;
+  width: 100%;
+`;
