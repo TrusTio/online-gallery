@@ -5,7 +5,7 @@ import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
 import { deleteImage, renameImage } from "components/api/gallery/image";
-import { Form, Field, Formik } from "formik";
+import { Form, Formik } from "formik";
 import {
   ThemedModal,
   ThemedModalHeader,

@@ -56,7 +56,7 @@ export const GalleryContents = () => {
 
   useEffect(() => {
     getGalleryContents();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (galleryContents === null) {
     return <div></div>;
