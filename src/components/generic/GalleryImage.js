@@ -13,10 +13,12 @@ import {
 } from "components/generic/styled";
 import { imageNameValidationSchema } from "validations/schemas/imageName";
 import { TextInputField } from "./TextInput/TextInputField";
+import { SimilarImagesModal } from "./Modals/SimilarImagesModal";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [showSearchModal, setShowSearchModal] = useState(false);
   const [error, setError] = useState(null);
 
   return (
@@ -50,6 +52,15 @@ export const GalleryImage = ({ image, updateContents }) => {
           }}
         >
           Delete
+        </MenuItem>
+
+        <MenuItem
+          data={{ action: "search" }}
+          onClick={() => {
+            setShowSearchModal(true);
+          }}
+        >
+          Similar Images
         </MenuItem>
       </CustomContextMenu>
 
@@ -146,6 +157,14 @@ export const GalleryImage = ({ image, updateContents }) => {
           </Button>
         </ThemedModalBody>
       </ThemedModal>
+
+      <SimilarImagesModal
+        show={showSearchModal}
+        onHide={() => {
+          setShowSearchModal(false);
+        }}
+        image={image}
+      ></SimilarImagesModal>
     </div>
   );
 };
