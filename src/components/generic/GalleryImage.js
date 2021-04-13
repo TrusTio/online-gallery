@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
-import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
-import { CustomContextMenu } from "components/generic/styled";
+import { ContextMenuTrigger } from "react-contextmenu";
 import { SimilarImagesModal } from "./Modals/SimilarImagesModal";
 import { DeleteImageModal } from "./Modals/DeleteImageModal";
 import { RenameImageModal } from "./Modals/RenameImageModal";
+import { ImageContextMenu } from "./ContextMenus/ImageContextMenu";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
@@ -30,32 +30,13 @@ export const GalleryImage = ({ image, updateContents }) => {
         </ImageContainer>
       </ContextMenuTrigger>
 
-      <CustomContextMenu id={String(image.id)}>
-        <MenuItem
-          data={{ action: "rename" }}
-          onClick={() => setShowRenameModal(true)}
-        >
-          Rename
-        </MenuItem>
-        <MenuItem
-          data={{ action: "delete" }}
-          onClick={() => {
-            setShowDeleteModal(true);
-            updateContents();
-          }}
-        >
-          Delete
-        </MenuItem>
-
-        <MenuItem
-          data={{ action: "search" }}
-          onClick={() => {
-            setShowSearchModal(true);
-          }}
-        >
-          Similar Images
-        </MenuItem>
-      </CustomContextMenu>
+      <ImageContextMenu
+        image={image}
+        setShowRenameModal={setShowRenameModal}
+        setShowDeleteModal={setShowDeleteModal}
+        setShowSearchModal={setShowSearchModal}
+        updateContents={updateContents}
+      />
 
       <RenameImageModal
         show={showRenameModal}
@@ -68,7 +49,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         setError={setError}
         setShowRenameModal={setShowRenameModal}
         updateContents={updateContents}
-      ></RenameImageModal>
+      />
 
       <DeleteImageModal
         show={showDeleteModal}
@@ -81,7 +62,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         setError={setError}
         setShowDeleteModal={setShowDeleteModal}
         updateContents={updateContents}
-      ></DeleteImageModal>
+      />
 
       <SimilarImagesModal
         show={showSearchModal}
@@ -89,7 +70,7 @@ export const GalleryImage = ({ image, updateContents }) => {
           setShowSearchModal(false);
         }}
         image={image}
-      ></SimilarImagesModal>
+      />
     </div>
   );
 };
