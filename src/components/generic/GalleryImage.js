@@ -1,20 +1,12 @@
 import React, { useState } from "react";
-import { Card, Button, Alert } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
-import { renameImage } from "components/api/gallery/image";
-import { Form, Formik } from "formik";
-import {
-  ThemedModal,
-  ThemedModalHeader,
-  ThemedModalBody,
-} from "components/generic/styled";
-import { imageNameValidationSchema } from "validations/schemas/imageName";
-import { TextInputField } from "./TextInput/TextInputField";
 import { SimilarImagesModal } from "./Modals/SimilarImagesModal";
 import { DeleteImageModal } from "./Modals/DeleteImageModal";
+import { RenameImageModal } from "./Modals/RenameImageModal";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
@@ -65,56 +57,18 @@ export const GalleryImage = ({ image, updateContents }) => {
         </MenuItem>
       </CustomContextMenu>
 
-      <ThemedModal
+      <RenameImageModal
         show={showRenameModal}
         onHide={() => {
           setShowRenameModal(false);
           setError(false);
         }}
-        backdrop="static"
-        keyboard={false}
-        centered
-      >
-        <ThemedModalHeader closeButton>
-          <ThemedModal.Title>Rename {image?.name}</ThemedModal.Title>
-        </ThemedModalHeader>
-        <ThemedModalBody>
-          <Formik
-            initialValues={{ newImageName: "" }}
-            onSubmit={(values) => {
-              const response = renameImage(image?.url, values?.newImageName);
-              response
-                .then(function (res) {
-                  if (res.status === 204) {
-                    updateContents();
-                    setShowRenameModal(false);
-                  } else {
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setError(err?.response?.data?.message);
-                });
-            }}
-            validationSchema={imageNameValidationSchema}
-          >
-            <Form>
-              {error && <Alert variant="danger">{error}</Alert>}
-              <TextInputField name="newImageName" label="Name" />
-              <div>
-                <Button
-                  variant="secondary"
-                  onClick={() => setShowRenameModal(false)}
-                >
-                  Close
-                </Button>
-
-                <Button type="submit">Change</Button>
-              </div>
-            </Form>
-          </Formik>
-        </ThemedModalBody>
-      </ThemedModal>
+        image={image}
+        error={error}
+        setError={setError}
+        setShowRenameModal={setShowRenameModal}
+        updateContents={updateContents}
+      ></RenameImageModal>
 
       <DeleteImageModal
         show={showDeleteModal}
@@ -122,9 +76,6 @@ export const GalleryImage = ({ image, updateContents }) => {
           setShowDeleteModal(false);
           setError(false);
         }}
-        backdrop="static"
-        keyboard={false}
-        centered
         image={image}
         error={error}
         setError={setError}
