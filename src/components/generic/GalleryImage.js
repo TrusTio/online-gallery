@@ -4,7 +4,7 @@ import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
 import { CustomContextMenu } from "components/generic/styled";
-import { deleteImage, renameImage } from "components/api/gallery/image";
+import { renameImage } from "components/api/gallery/image";
 import { Form, Formik } from "formik";
 import {
   ThemedModal,
@@ -14,6 +14,7 @@ import {
 import { imageNameValidationSchema } from "validations/schemas/imageName";
 import { TextInputField } from "./TextInput/TextInputField";
 import { SimilarImagesModal } from "./Modals/SimilarImagesModal";
+import { DeleteImageModal } from "./Modals/DeleteImageModal";
 
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
@@ -115,7 +116,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         </ThemedModalBody>
       </ThemedModal>
 
-      <ThemedModal
+      <DeleteImageModal
         show={showDeleteModal}
         onHide={() => {
           setShowDeleteModal(false);
@@ -124,39 +125,12 @@ export const GalleryImage = ({ image, updateContents }) => {
         backdrop="static"
         keyboard={false}
         centered
-      >
-        <ThemedModalHeader closeButton>
-          <ThemedModal.Title>
-            Do you want to delete {image?.name}?
-          </ThemedModal.Title>
-        </ThemedModalHeader>
-        {error && <Alert variant="danger">{error}</Alert>}
-        <ThemedModalBody>
-          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
-            Close
-          </Button>
-          <Button
-            variant="danger"
-            onClick={() => {
-              const response = deleteImage(image.url);
-              response
-                .then(function (res) {
-                  if (res.status === 204) {
-                    updateContents();
-                    setShowRenameModal(false);
-                  } else {
-                  }
-                })
-                .catch((err) => {
-                  console.log(err);
-                  setError(err?.response?.data?.message);
-                });
-            }}
-          >
-            Delete
-          </Button>
-        </ThemedModalBody>
-      </ThemedModal>
+        image={image}
+        error={error}
+        setError={setError}
+        setShowDeleteModal={setShowDeleteModal}
+        updateContents={updateContents}
+      ></DeleteImageModal>
 
       <SimilarImagesModal
         show={showSearchModal}
