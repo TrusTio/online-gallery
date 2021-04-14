@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import folderIcon from "assets/images/folder-icon.png";
 import styled from "styled-components";
-import { ContextMenuTrigger, MenuItem } from "react-contextmenu";
-import { CustomContextMenu } from "components/generic/styled";
+import { ContextMenuTrigger } from "react-contextmenu";
 import { deleteGallery, renameGallery } from "components/api/gallery/gallery";
 import {
   ThemedModal,
@@ -14,6 +13,7 @@ import { Form, Formik } from "formik";
 import { Button, Alert, ModalTitle } from "react-bootstrap";
 import { TextInputField } from "./TextInput/TextInputField";
 import { galleryNameValidationSchema } from "validations/schemas/galleryName";
+import { GalleryFolderContextMenu } from "./ContextMenus/GalleryFolderContextMenu";
 
 export const GalleryFolder = ({ gallery, updateContents, userId }) => {
   const history = useHistory();
@@ -37,24 +37,12 @@ export const GalleryFolder = ({ gallery, updateContents, userId }) => {
           <FolderName className="folderName">{gallery?.name}</FolderName>
         </FolderContainer>
       </ContextMenuTrigger>
-      <CustomContextMenu id={String(gallery.id)}>
-        <MenuItem
-          data={{ action: "rename" }}
-          onClick={() => {
-            setShowRenameModal(true);
-          }}
-        >
-          Rename
-        </MenuItem>
-        <MenuItem
-          data={{ action: "delete" }}
-          onClick={() => {
-            setShowDeleteModal(true);
-          }}
-        >
-          Delete
-        </MenuItem>
-      </CustomContextMenu>
+
+      <GalleryFolderContextMenu
+        gallery={gallery}
+        setShowRenameModal={setShowRenameModal}
+        setShowDeleteModal={setShowDeleteModal}
+      />
 
       <ThemedModal
         show={showRenameModal}
