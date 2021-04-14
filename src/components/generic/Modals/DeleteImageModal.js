@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ThemedModal,
   ThemedModalHeader,
@@ -11,15 +11,17 @@ export const DeleteImageModal = ({
   show,
   onHide,
   image,
-  error,
-  setError,
   setShowDeleteModal,
   updateContents,
 }) => {
+  const [error, setError] = useState(null);
   return (
     <ThemedModal
       show={show}
-      onHide={onHide}
+      onHide={() => {
+        onHide();
+        setError(false);
+      }}
       backdrop="static"
       keyboard={false}
       centered

@@ -12,7 +12,6 @@ export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showSearchModal, setShowSearchModal] = useState(false);
-  const [error, setError] = useState(null);
 
   return (
     <div>
@@ -42,11 +41,8 @@ export const GalleryImage = ({ image, updateContents }) => {
         show={showRenameModal}
         onHide={() => {
           setShowRenameModal(false);
-          setError(false);
         }}
         image={image}
-        error={error}
-        setError={setError}
         setShowRenameModal={setShowRenameModal}
         updateContents={updateContents}
       />
@@ -55,11 +51,8 @@ export const GalleryImage = ({ image, updateContents }) => {
         show={showDeleteModal}
         onHide={() => {
           setShowDeleteModal(false);
-          setError(false);
         }}
         image={image}
-        error={error}
-        setError={setError}
         setShowDeleteModal={setShowDeleteModal}
         updateContents={updateContents}
       />

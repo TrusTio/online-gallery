@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   ThemedModal,
   ThemedModalHeader,
@@ -14,15 +14,17 @@ export const RenameImageModal = ({
   show,
   onHide,
   image,
-  error,
-  setError,
   updateContents,
   setShowRenameModal,
 }) => {
+  const [error, setError] = useState(null);
   return (
     <ThemedModal
       show={show}
-      onHide={onHide}
+      onHide={() => {
+        onHide();
+        setError(false);
+      }}
       backdrop="static"
       keyboard={false}
       centered
@@ -56,7 +58,10 @@ export const RenameImageModal = ({
             <div>
               <Button
                 variant="secondary"
-                onClick={() => setShowRenameModal(false)}
+                onClick={() => {
+                  setShowRenameModal(false);
+                  setError(null);
+                }}
               >
                 Close
               </Button>
