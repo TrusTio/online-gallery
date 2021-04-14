@@ -10,48 +10,53 @@ import { Form, Formik } from "formik";
 import { TextInputField } from "../TextInput/TextInputField";
 import { imageNameValidationSchema } from "validations/schemas/imageName";
 
-export const RenameImageModal = (props) => {
+export const RenameImageModal = ({
+  show,
+  onHide,
+  image,
+  error,
+  setError,
+  updateContents,
+  setShowRenameModal,
+}) => {
   return (
     <ThemedModal
-      show={props.show}
-      onHide={props.onHide}
+      show={show}
+      onHide={onHide}
       backdrop="static"
       keyboard={false}
       centered
     >
       <ThemedModalHeader closeButton>
-        <ThemedModal.Title>Rename {props.image?.name}</ThemedModal.Title>
+        <ThemedModal.Title>Rename {image?.name}</ThemedModal.Title>
       </ThemedModalHeader>
       <ThemedModalBody>
         <Formik
           initialValues={{ newImageName: "" }}
           onSubmit={(values) => {
-            const response = renameImage(
-              props.image?.url,
-              values?.newImageName
-            );
+            const response = renameImage(image?.url, values?.newImageName);
             response
               .then(function (res) {
                 if (res.status === 204) {
-                  props.updateContents();
-                  props.setShowRenameModal(false);
+                  updateContents();
+                  setShowRenameModal(false);
                 } else {
                 }
               })
               .catch((err) => {
                 console.log(err);
-                props.setError(err?.response?.data?.message);
+                setError(err?.response?.data?.message);
               });
           }}
           validationSchema={imageNameValidationSchema}
         >
           <Form>
-            {props.error && <Alert variant="danger">{props.error}</Alert>}
+            {error && <Alert variant="danger">{error}</Alert>}
             <TextInputField name="newImageName" label="Name" />
             <div>
               <Button
                 variant="secondary"
-                onClick={() => props.setShowRenameModal(false)}
+                onClick={() => setShowRenameModal(false)}
               >
                 Close
               </Button>

@@ -2,20 +2,26 @@ import React from "react";
 import { CustomContextMenu } from "components/generic/styled";
 import { MenuItem } from "react-contextmenu";
 
-export const ImageContextMenu = (props) => {
+export const ImageContextMenu = ({
+  image,
+  setShowRenameModal,
+  setShowDeleteModal,
+  setShowSearchModal,
+  updateContents,
+}) => {
   return (
-    <CustomContextMenu id={String(props.image.id)}>
+    <CustomContextMenu id={String(image.id)}>
       <MenuItem
         data={{ action: "rename" }}
-        onClick={() => props.setShowRenameModal(true)}
+        onClick={() => setShowRenameModal(true)}
       >
         Rename
       </MenuItem>
       <MenuItem
         data={{ action: "delete" }}
         onClick={() => {
-          props.setShowDeleteModal(true);
-          props.updateContents();
+          setShowDeleteModal(true);
+          updateContents();
         }}
       >
         Delete
@@ -24,7 +30,7 @@ export const ImageContextMenu = (props) => {
       <MenuItem
         data={{ action: "search" }}
         onClick={() => {
-          props.setShowSearchModal(true);
+          setShowSearchModal(true);
         }}
       >
         Similar Images

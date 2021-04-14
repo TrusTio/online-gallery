@@ -5,17 +5,17 @@ import {
   ThemedModalBody,
 } from "components/generic/styled";
 
-export const SimilarImagesModal = (props) => {
+export const SimilarImagesModal = ({ show, onHide, image }) => {
   return (
     <ThemedModal
-      show={props.show}
-      onHide={props.onHide}
+      show={show}
+      onHide={onHide}
       backdrop="static"
       keyboard={false}
       centered
     >
       <ThemedModalHeader closeButton>
-        <ThemedModal.Title>{props.image?.name}</ThemedModal.Title>
+        <ThemedModal.Title>{image?.name}</ThemedModal.Title>
       </ThemedModalHeader>
       <ThemedModalBody></ThemedModalBody>
     </ThemedModal>

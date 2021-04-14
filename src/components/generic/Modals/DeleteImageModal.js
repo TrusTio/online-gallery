@@ -7,43 +7,48 @@ import {
 import { Button, Alert } from "react-bootstrap";
 import { deleteImage } from "components/api/gallery/image";
 
-export const DeleteImageModal = (props) => {
+export const DeleteImageModal = ({
+  show,
+  onHide,
+  image,
+  error,
+  setError,
+  setShowDeleteModal,
+  updateContents,
+}) => {
   return (
     <ThemedModal
-      show={props.show}
-      onHide={props.onHide}
+      show={show}
+      onHide={onHide}
       backdrop="static"
       keyboard={false}
       centered
     >
       <ThemedModalHeader closeButton>
         <ThemedModal.Title>
-          Do you want to delete {props.image?.name}?
+          Do you want to delete {image?.name}?
         </ThemedModal.Title>
       </ThemedModalHeader>
-      {props.error && <Alert variant="danger">{props.error}</Alert>}
+      {error && <Alert variant="danger">{error}</Alert>}
       <ThemedModalBody>
-        <Button
-          variant="secondary"
-          onClick={() => props.setShowDeleteModal(false)}
-        >
+        <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
           Close
         </Button>
         <Button
           variant="danger"
           onClick={() => {
-            const response = deleteImage(props.image.url);
+            const response = deleteImage(image.url);
             response
               .then(function (res) {
                 if (res.status === 204) {
-                  props.updateContents();
-                  props.setShowDeleteModal(false);
+                  updateContents();
+                  setShowDeleteModal(false);
                 } else {
                 }
               })
               .catch((err) => {
                 console.log(err);
-                props.setError(err?.response?.data?.message);
+                setError(err?.response?.data?.message);
               });
           }}
         >
