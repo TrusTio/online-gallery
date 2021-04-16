@@ -2,22 +2,13 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
-import {
-  ActionBar,
-  ThemedModal,
-  ThemedModalBody,
-  ThemedModalHeader,
-} from "components/generic/styled";
-import { Alert, Button } from "react-bootstrap";
-import { Form, Formik } from "formik";
-import { createGallery } from "components/api/gallery/gallery";
-import { TextInputField } from "components/generic/TextInput/TextInputField";
-import { galleryNameValidationSchema } from "validations/schemas/galleryName";
+import { ActionBar } from "components/generic/styled";
+import { Button } from "react-bootstrap";
+import { CreateGalleryModal } from "components/generic/Modals/CreateGalleryModal";
 
 export const GalleriesPage = () => {
-  const [galleries, setGalleries] = React.useState(null);
-  const [showCreateModal, setShowCreateModal] = React.useState(null);
-  const [error, setError] = useState(null);
+  const [galleries, setGalleries] = useState(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
   const { user } = useAuth();
 
   const getUserGalleries = async () => {
@@ -44,45 +35,16 @@ export const GalleriesPage = () => {
           </Button>
         </ActionBar>
 
-        <ThemedModal
+        <CreateGalleryModal
           show={showCreateModal}
           onHide={() => {
             setShowCreateModal(false);
           }}
-          backdrop="static"
-          keyboard={false}
-          centered
-        >
-          <ThemedModalHeader closeButton />
-          <ThemedModalBody>
-            <Formik
-              initialValues={{ name: "", userId: user.id }}
-              onSubmit={(values) => {
-                values.name = values?.galleryName;
-                const response = createGallery(values);
-                response
-                  .then(function (res) {
-                    if (res.status === 201) {
-                      getUserGalleries();
-                      setShowCreateModal(false);
-                    } else {
-                    }
-                  })
-                  .catch((err) => {
-                    console.log(err);
-                    setError(err?.response?.data?.message);
-                  });
-              }}
-              validationSchema={galleryNameValidationSchema}
-            >
-              <Form>
-                {error && <Alert variant="danger">{error}</Alert>}
-                <TextInputField name="galleryName" label="Gallery Name" />
-                <Button type="submit">Create</Button>
-              </Form>
-            </Formik>
-          </ThemedModalBody>
-        </ThemedModal>
+          userId={user.id}
+          getUserGalleries={getUserGalleries}
+          setShowCreateModal={setShowCreateModal}
+        />
+
         {galleries?.length === 0 ? (
           <div> No gallery contents present</div>
         ) : null}
