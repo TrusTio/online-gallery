@@ -3,7 +3,7 @@ import { Card } from "react-bootstrap";
 import styled from "styled-components";
 import ModalImage from "react-modal-image";
 import { ContextMenuTrigger } from "react-contextmenu";
-import { SimilarImagesModal } from "./Modals/SimilarImagesModal";
+import { EditImageModal } from "./Modals/EditImageModal";
 import { DeleteImageModal } from "./Modals/DeleteImageModal";
 import { RenameImageModal } from "./Modals/RenameImageModal";
 import { ImageContextMenu } from "./ContextMenus/ImageContextMenu";
@@ -11,7 +11,7 @@ import { ImageContextMenu } from "./ContextMenus/ImageContextMenu";
 export const GalleryImage = ({ image, updateContents }) => {
   const [showRenameModal, setShowRenameModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showSearchModal, setShowSearchModal] = useState(false);
+  const [showEditModal, setShowEditModal] = useState(false);
 
   return (
     <div>
@@ -33,7 +33,7 @@ export const GalleryImage = ({ image, updateContents }) => {
         image={image}
         setShowRenameModal={setShowRenameModal}
         setShowDeleteModal={setShowDeleteModal}
-        setShowSearchModal={setShowSearchModal}
+        setShowEditModal={setShowEditModal}
         updateContents={updateContents}
       />
 
@@ -57,10 +57,10 @@ export const GalleryImage = ({ image, updateContents }) => {
         updateContents={updateContents}
       />
 
-      <SimilarImagesModal
-        show={showSearchModal}
+      <EditImageModal
+        show={showEditModal}
         onHide={() => {
-          setShowSearchModal(false);
+          setShowEditModal(false);
         }}
         image={image}
       />

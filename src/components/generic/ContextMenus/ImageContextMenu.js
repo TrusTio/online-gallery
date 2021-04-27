@@ -6,7 +6,7 @@ export const ImageContextMenu = ({
   image,
   setShowRenameModal,
   setShowDeleteModal,
-  setShowSearchModal,
+  setShowEditModal,
   updateContents,
 }) => {
   return (
@@ -30,10 +30,10 @@ export const ImageContextMenu = ({
       <MenuItem
         data={{ action: "search" }}
         onClick={() => {
-          setShowSearchModal(true);
+          setShowEditModal(true);
         }}
       >
-        Similar Images
+        Edit Image
       </MenuItem>
     </CustomContextMenu>
   );
