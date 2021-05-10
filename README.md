@@ -14,4 +14,5 @@ It let's you:
 3. Run `npm install` and wait for it to download the needed dependencies
 4. Run `npm start` 
 5. Open [http://localhost:3000](http://localhost:3000) to view it in the browser
+
 *Note: You need to have the [gallery API](https://github.com/TrusTio/online-gallery-api). running to be able to register, login etc.*
