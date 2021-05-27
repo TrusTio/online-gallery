@@ -1,17 +1,19 @@
 import React from "react";
-import { Navbar, Nav, Button, Form, FormControl } from "react-bootstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Navbar, Nav, Button } from "react-bootstrap";
+import { Link, NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
+import { Formik, Form, Field } from "formik";
 
 export const AppBar = ({ children }) => {
   const { user, logout } = useAuth();
+  const history = useHistory();
 
   if (user) {
     return (
       <CustomNavBar>
         <Link to="/">
-          <Navbar.Brand>Personal Gallery</Navbar.Brand>
+          <Navbar.Brand>{user?.username}'s Gallery</Navbar.Brand>
         </Link>
 
         <Nav className="mr-auto">
@@ -22,20 +24,42 @@ export const AppBar = ({ children }) => {
 
         {children}
 
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
-          <div>{user?.username}</div>
-          <Button
-            variant="danger"
-            onClick={() => {
-              logout();
-              window.location.reload();
-            }}
-          >
-            Logout
-          </Button>
-        </Form>
+        <Formik
+          initialValues={{
+            pictureName: "",
+          }}
+          onSubmit={(values) => {
+            history.push({
+              pathname: `search`,
+              state: {
+                pictureName: values?.pictureName,
+              },
+            });
+          }}
+        >
+          {() => {
+            return (
+              <SearchForm>
+                <SearchField
+                  type="text"
+                  placeholder="Search"
+                  className="mr-sm-2"
+                  name="pictureName"
+                />
+                <Button type="submit">Search</Button>
+              </SearchForm>
+            );
+          }}
+        </Formik>
+        <Button
+          variant="danger"
+          onClick={() => {
+            logout();
+            window.location.reload();
+          }}
+        >
+          Logout
+        </Button>
       </CustomNavBar>
     );
   } else {
@@ -55,16 +79,18 @@ export const AppBar = ({ children }) => {
         </Nav>
 
         {children}
-
-        <Form inline>
-          <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-          <Button variant="outline-info">Search</Button>
-        </Form>
       </Navbar>
     );
   }
 };
 
+const SearchForm = styled(Form)`
+  display: inline-flex;
+`;
+const SearchField = styled(Field)`
+  border: 2px solid ${(props) => props.theme.basicBorder};
+  border-radius: 7px;
+`;
 const CustomNavBar = styled(Navbar)`
   background-color: ${(props) => props.theme.navbarBody};
 `;

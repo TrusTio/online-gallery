@@ -3,6 +3,7 @@ import { Switch, Route, Redirect } from "react-router-dom";
 import { LoginPage, SignUpPage } from "./pages/Auth";
 import { GalleriesPage, GalleryContents } from "pages";
 import { useAuth } from "contexts/AuthContext";
+import { SearchResultsPage } from "pages/SearchResultsPage";
 
 export const AppRoutes = () => {
   const { user } = useAuth();
@@ -12,6 +13,7 @@ export const AppRoutes = () => {
       <Switch>
         <Route path="/galleries" exact component={GalleriesPage} />
         <Route path="/gallery" component={GalleryContents} />
+        <Route path="/search" component={SearchResultsPage} />
         <Redirect to="/" />
       </Switch>
     );
