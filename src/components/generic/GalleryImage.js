@@ -70,7 +70,8 @@ export const GalleryImage = ({ image, updateContents }) => {
 
 const ImageContainer = styled.div`
   float: left;
-  width: 25vw;
+  width: 15vw;
+
   margin: 0.75vw 0.75vw 0.75vw 0.75vw;
 `;
 

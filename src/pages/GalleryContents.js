@@ -3,10 +3,9 @@ import { useLocation } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleryImages, uploadImage } from "components/api/gallery";
 import { GalleryImage } from "components/generic/GalleryImage";
-import { ActionBar } from "components/generic/styled";
+import { ActionBar, NormalButton } from "components/generic/styled";
 import { useDropzone } from "react-dropzone";
 import styled from "styled-components";
-import { Button } from "react-bootstrap";
 
 export const GalleryContents = () => {
   const location = useLocation();
@@ -72,7 +71,7 @@ export const GalleryContents = () => {
         />
 
         <ActionBar>
-          <Button onClick={onButtonClick}>Upload</Button>
+          <NormalButton onClick={onButtonClick}>Upload</NormalButton>
         </ActionBar>
         <Container {...getRootProps({ refKey: "innerRef" })}>
           <div {...getInputProps()} />

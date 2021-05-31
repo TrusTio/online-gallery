@@ -1,10 +1,11 @@
 import styled from "styled-components";
-import { Navbar, Modal, Card } from "react-bootstrap";
+import { Navbar, Modal, Card, Button } from "react-bootstrap";
 import { ContextMenu } from "react-contextmenu";
 
 export const ActionBar = styled(Navbar)`
   background-color: ${(props) => props.theme.actionBarBody};
-  border-bottom: 3px solid ${(props) => props.theme.actionBarBorder};
+  border-top: 2px solid ${(props) => props.theme.actionBarBorder};
+  border-bottom: 2px solid ${(props) => props.theme.actionBarBorder};
   margin: 0px -15px 0px -15px;
 `;
 
@@ -29,15 +30,24 @@ export const ThemedModalBody = styled(ThemedModal.Body)`
 `;
 
 export const ThemedFormCard = styled(Card)`
-  color: white;
+  color: ${(props) => props.theme.formText};
+  background-color: ${(props) => props.theme.formBody};
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 25rem;
   text-align: center;
-  background-color: #353a40;
+
   border-style: groove;
   border-color: ${(props) => props.theme.formBorder};
   border-width: 0.25rem;
+`;
+
+export const NormalButton = styled(Button)`
+  background-color: ${(props) => props.theme.normalButtonBackground};
+  color: ${(props) => props.theme.normalButtonText};
+  &:hover {
+    background-color: ${(props) => props.theme.normalButtonBackgroundHover};
+  }
 `;

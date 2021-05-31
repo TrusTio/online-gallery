@@ -3,6 +3,7 @@ import {
   ThemedModal,
   ThemedModalHeader,
   ThemedModalBody,
+  NormalButton,
 } from "components/generic/styled";
 import { Button, Alert } from "react-bootstrap";
 import { renameImage } from "components/api/gallery/image";
@@ -66,7 +67,7 @@ export const RenameImageModal = ({
                 Close
               </Button>
 
-              <Button type="submit">Change</Button>
+              <NormalButton type="submit">Change</NormalButton>
             </div>
           </Form>
         </Formik>

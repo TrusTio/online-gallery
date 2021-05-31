@@ -3,8 +3,9 @@ import {
   ThemedModal,
   ThemedModalHeader,
   ThemedModalBody,
+  NormalButton,
 } from "components/generic/styled";
-import { Button, Alert } from "react-bootstrap";
+import { Alert } from "react-bootstrap";
 import { createGallery } from "components/api/gallery/gallery";
 import { Form, Formik } from "formik";
 import { TextInputField } from "../TextInput/TextInputField";
@@ -54,7 +55,7 @@ export const CreateGalleryModal = ({
           <Form>
             {error && <Alert variant="danger">{error}</Alert>}
             <TextInputField name="galleryName" label="Gallery Name" />
-            <Button type="submit">Create</Button>
+            <NormalButton type="submit">Create</NormalButton>
           </Form>
         </Formik>
       </ThemedModalBody>

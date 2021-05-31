@@ -4,6 +4,7 @@ import { Link, NavLink, useHistory } from "react-router-dom";
 import { useAuth } from "contexts/AuthContext";
 import styled from "styled-components";
 import { Formik, Form, Field } from "formik";
+import { NormalButton } from "components/generic/styled";
 
 export const AppBar = ({ children }) => {
   const { user, logout } = useAuth();
@@ -11,19 +12,16 @@ export const AppBar = ({ children }) => {
 
   if (user) {
     return (
-      <CustomNavBar>
+      <CustomNavBar variant="dark">
         <Link to="/">
-          <Navbar.Brand>{user?.username}'s Gallery</Navbar.Brand>
+          <CustomNavBar.Brand>{user?.username}'s Gallery</CustomNavBar.Brand>
         </Link>
-
         <Nav className="mr-auto">
           <Nav.Link as={NavLink} to="/galleries">
             Galleries
           </Nav.Link>
         </Nav>
-
         {children}
-
         <Formik
           initialValues={{
             pictureName: "",
@@ -46,7 +44,7 @@ export const AppBar = ({ children }) => {
                   className="mr-sm-2"
                   name="pictureName"
                 />
-                <Button type="submit">Search</Button>
+                <NormalButton type="submit">Search</NormalButton>
               </SearchForm>
             );
           }}
@@ -64,7 +62,7 @@ export const AppBar = ({ children }) => {
     );
   } else {
     return (
-      <Navbar bg="dark" variant="dark">
+      <CustomNavBar variant="dark">
         <Link to="/">
           <Navbar.Brand>Personal Gallery</Navbar.Brand>
         </Link>
@@ -79,7 +77,7 @@ export const AppBar = ({ children }) => {
         </Nav>
 
         {children}
-      </Navbar>
+      </CustomNavBar>
     );
   }
 };
@@ -89,8 +87,11 @@ const SearchForm = styled(Form)`
 `;
 const SearchField = styled(Field)`
   border: 2px solid ${(props) => props.theme.basicBorder};
+  background-color: ${(props) => props.theme.body};
+  color: ${(props) => props.theme.text};
   border-radius: 7px;
 `;
 const CustomNavBar = styled(Navbar)`
   background-color: ${(props) => props.theme.navbarBody};
+  color: ${(props) => props.theme.navbarText};
 `;

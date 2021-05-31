@@ -2,8 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useAuth } from "contexts/AuthContext";
 import { getGalleries } from "components/api/gallery/users";
 import { GalleryFolder } from "components/generic/GalleryFolder";
-import { ActionBar } from "components/generic/styled";
-import { Button } from "react-bootstrap";
+import { ActionBar, NormalButton } from "components/generic/styled";
 import { CreateGalleryModal } from "components/generic/Modals/CreateGalleryModal";
 
 export const GalleriesPage = () => {
@@ -26,13 +25,13 @@ export const GalleriesPage = () => {
     return (
       <div>
         <ActionBar>
-          <Button
+          <NormalButton
             onClick={() => {
               setShowCreateModal(true);
             }}
           >
-            Create{" "}
-          </Button>
+            Create
+          </NormalButton>
         </ActionBar>
 
         <CreateGalleryModal
