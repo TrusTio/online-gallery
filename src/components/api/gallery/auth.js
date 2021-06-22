@@ -10,7 +10,7 @@ export const signUp = async ({ username, email, password }) => {
 };
 
 export const signIn = async ({ username, password }) => {
-  const res = await axios.post("/login", {
+  const res = await axios.post("https://gallery-rest-api.herokuapp.com/login", {
     username,
     password,
   });
