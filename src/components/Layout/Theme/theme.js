@@ -21,14 +21,15 @@ export const lightTheme = {
   contextMenuBackground: `${color.white}`,
   contextMenuText: `${color.black}`,
 
-  actionBarBorder: `${color.cyan}`,
-  cardBorder: `${color.cyan}`,
-  formBorder: `${color.cyan}`,
-  basicBorder: `${color.cyan}`,
+  actionBarBorder: `${color.darkblue}`,
+  cardBorder: `${color.darkblue}`,
+  formBorder: `${color.darkblue}`,
+  basicBorder: `${color.darkblue}`,
 
   normalButtonBackground: `${color.cyan}`,
   normalButtonBackgroundHover: `${color.cyan}`,
   normalButtonText: `${color.black}`,
+  buttonBorder: `${color.darkblue}`,
 };
 
 export const darkTheme = {
@@ -56,4 +57,5 @@ export const darkTheme = {
   normalButtonBackground: `${color.cyan}`,
   normalButtonBackgroundHover: `${color.cyan}`,
   normalButtonText: `${color.black}`,
+  buttonBorder: `${color.cyan}`,
 };

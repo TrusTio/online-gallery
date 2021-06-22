@@ -22,7 +22,7 @@ export const AppRoutes = () => {
       <Switch>
         <Route path="/login" exact component={LoginPage} />
         <Route path="/signup" exact component={SignUpPage} />
-        <Redirect to="/" />
+        <Redirect to="/login" />
       </Switch>
     );
   }

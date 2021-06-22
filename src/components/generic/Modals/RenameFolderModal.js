@@ -35,13 +35,10 @@ export const RenameFolderModal = ({
       </ThemedModalHeader>
       <ThemedModalBody>
         <Formik
-          initialValues={{ galleryName: "" }}
+          initialValues={{ name: "", userId: userId }}
           onSubmit={(values) => {
-            const response = renameGallery(
-              userId,
-              gallery.id,
-              values?.galleryName
-            );
+            values.name = values?.galleryName;
+            const response = renameGallery(userId, gallery.id, values);
             response
               .then(function (res) {
                 if (res.status === 204) {

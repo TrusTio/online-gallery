@@ -5,15 +5,10 @@ export const deleteGallery = async (userId, galleryId) => {
   return res;
 };
 
-export const renameGallery = async (userId, galleryId, newGalleryName) => {
+export const renameGallery = async (userId, galleryId, gallery) => {
   const res = await axios.patch(
     `/api/v1/galleries/${userId}/${galleryId}`,
-    {},
-    {
-      params: {
-        newGalleryName,
-      },
-    }
+    gallery
   );
   return res;
 };

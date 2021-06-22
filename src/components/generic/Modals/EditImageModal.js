@@ -28,6 +28,7 @@ export const EditImageModal = ({ show, onHide, image }) => {
 
 const CustomModal = styled(ThemedModal)`
   padding-right: 95vw;
+  padding-left: 1.5vw;
   max-width: none !important;
 `;
 
@@ -38,6 +39,6 @@ const CustomModalHeader = styled(ThemedModalHeader)`
 
 const CustomModalBody = styled(ThemedModalBody)`
   width: 95vw;
-  height: 95vh;
+  height: 85vh;
   background-color: ${(props) => props.theme.modalBody};
 `;

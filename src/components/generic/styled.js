@@ -50,4 +50,5 @@ export const NormalButton = styled(Button)`
   &:hover {
     background-color: ${(props) => props.theme.normalButtonBackgroundHover};
   }
+  border-color: ${(props) => props.theme.buttonBorder};
 `;
