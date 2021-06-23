@@ -10,15 +10,13 @@ export const uploadImage = async ({ file, galleryId }) => {
 };
 
 export const deleteImage = async (imageUrl) => {
-  const fixedUrl = imageUrl.replace("http://localhost:8080", "");
-  const res = await axios.delete(fixedUrl);
+  const res = await axios.delete(imageUrl);
   return res;
 };
 
 export const renameImage = async (imageUrl, newImageName) => {
-  const fixedUrl = imageUrl.replace("http://localhost:8080", "");
   const res = await axios.patch(
-    fixedUrl,
+    imageUrl,
     {},
     {
       params: {
