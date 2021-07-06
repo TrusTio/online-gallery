@@ -33,7 +33,7 @@ export const AuthContextProvider = ({ children, userData }) => {
     try {
       const response = await signUp({ username, email, password });
 
-      if (response.status === 200) {
+      if (response.status === 201) {
         setSuccessfulSignUp(true);
       } else {
       }
