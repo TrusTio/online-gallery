@@ -6,7 +6,7 @@ export const signUp = async ({ username, email, password }) => {
     email,
     password,
   });
-  return res.data;
+  return res;
 };
 
 export const signIn = async ({ username, password }) => {
