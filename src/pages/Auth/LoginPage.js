@@ -12,7 +12,7 @@ export const LoginPage = () => {
 
   useEffect(() => {
     setError(null);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <MyContainer>
       <ThemedFormCard>

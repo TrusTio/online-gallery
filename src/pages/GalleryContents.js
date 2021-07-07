@@ -25,7 +25,7 @@ export const GalleryContents = () => {
       };
       reader.readAsArrayBuffer(file);
     });
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop });
 
   const onButtonClick = () => {
