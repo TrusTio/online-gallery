@@ -7,6 +7,7 @@ export const AuthContextProvider = ({ children, userData }) => {
   const [loading, setLoading] = React.useState(false);
   const [error, setError] = React.useState(null);
   const [user, setUser] = React.useState(userData);
+  const [successfulSignUp, setSuccessfulSignUp] = React.useState(false);
 
   const login = async ({ username, password }) => {
     if (loading) {
@@ -30,7 +31,12 @@ export const AuthContextProvider = ({ children, userData }) => {
 
   const createAccount = async ({ username, email, password }) => {
     try {
-      await signUp({ username, email, password });
+      const response = await signUp({ username, email, password });
+
+      if (response.status === 201) {
+        setSuccessfulSignUp(true);
+      } else {
+      }
     } catch (err) {
       console.log(JSON.stringify(err));
       setError(err?.response?.data?.message);
@@ -59,6 +65,8 @@ export const AuthContextProvider = ({ children, userData }) => {
         login,
         createAccount,
         logout,
+        successfulSignUp,
+        setSuccessfulSignUp,
       }}
     >
       {children}
